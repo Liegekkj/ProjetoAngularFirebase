@@ -12,17 +12,40 @@ import { Router } from '@angular/router';
 })
 export class HomePage {
 
-  pokemon:any = {
+  perfil: any = {
+    foto: null,
     nome: null,
-    poder: null
-  };
-
-  constructor( 
-    public crudService: CrudService
-  ){ }
-
-  enviar() {
-    this.crudService.insert(this.pokemon, 'pokemons');
+    profissao: null,
+    nome_usuario: null,
+    idioma: null,
+    localidade: null,
+    data_inicio: null,
+    biografia: null,
+    estatisticas: {
+      curtidas: 0,
+      seguindo: 0,
+      amigos: 0,
+    },
+    postagens: [
+      {
+        foto: '',
+        nome: 'Pyke',
+        nome_usuario: '@pyke',
+        texto: '',
+        data: '12/03/2025 14:00'
+      },
+      {
+        foto: '',
+        nome: 'Pyke',
+        nome_usuario: '@pyke',
+        texto: 'dsad',
+        data: '12/03/2025 15:00'
+      }
+      
+    ]
   }
+
+
+  constructor(){}
 
 }
