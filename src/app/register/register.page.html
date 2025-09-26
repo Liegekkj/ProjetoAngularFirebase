@@ -6,27 +6,27 @@
 
         <ion-item>
           <ion-label position="floating">Nome</ion-label>
-          <ion-input [(ngModel)]="nome"></ion-input>
+          <ion-input [(ngModel)]="nome" required></ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label position="floating">Usuário</ion-label>
-          <ion-input [(ngModel)]="usuario"></ion-input>
+          <ion-input [(ngModel)]="usuario" required></ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label position="floating">Email</ion-label>
-          <ion-input type="email" [(ngModel)]="email"></ion-input>
+          <ion-input type="email" [(ngModel)]="email" required></ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label position="floating">Senha</ion-label>
-          <ion-input type="password" [(ngModel)]="senha"></ion-input>
+          <ion-input type="password" [(ngModel)]="senha" required></ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label position="floating">Confirmar Senha</ion-label>
-          <ion-input type="password" [(ngModel)]="confirmarSenha"></ion-input>
+          <ion-input type="password" [(ngModel)]="confirmarSenha" required></ion-input>
         </ion-item>
 
         <ion-button expand="block" color="primary" (click)="registrar()">Registrar</ion-button>
@@ -35,7 +35,9 @@
           <p>Já tem conta? <a (click)="navCtrl.navigateBack('/login')">Login</a></p>
         </ion-text>
 
-        <div *ngIf="erroRegistro" style="color:red; text-align:center;">{{ erroRegistro }}</div>
+        <ion-text *ngIf="erroRegistro" color="danger" class="ion-text-center">
+          {{ erroRegistro }}
+        </ion-text>
       </ion-col>
     </ion-row>
   </ion-grid>

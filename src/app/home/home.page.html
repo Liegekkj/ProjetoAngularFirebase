@@ -1,52 +1,28 @@
-<ion-content class="ion-padding" fullscreen>
-    <ion-grid>
-      <ion-row class="ion-justify-content-center ion-align-items-center" style="height: 100%;">
-        <ion-col size="12" size-md="6" size-lg="4">
-  
-          <div class="ion-text-center">
-            <h1>Crie sua conta</h1>
-            <p>Preencha os campos abaixo para se registrar</p>
-          </div>
-  
-          <ion-item>
-            <ion-label position="floating">Nome Completo</ion-label>
-            <ion-input [(ngModel)]="nome" type="text"></ion-input>
-          </ion-item>
-  
-          <ion-item>
-            <ion-label position="floating">Usuário</ion-label>
-            <ion-input [(ngModel)]="usuario" type="text"></ion-input>
-          </ion-item>
-  
-          <ion-item>
-            <ion-label position="floating">Email</ion-label>
-            <ion-input [(ngModel)]="email" type="email"></ion-input>
-          </ion-item>
-  
-          <ion-item>
-            <ion-label position="floating">Senha</ion-label>
-            <ion-input [(ngModel)]="senha" type="password"></ion-input>
-          </ion-item>
-  
-          <ion-item>
-            <ion-label position="floating">Confirmar Senha</ion-label>
-            <ion-input [(ngModel)]="confirmarSenha" type="password"></ion-input>
-          </ion-item>
-  
-          <ion-button expand="block" color="primary" (click)="registrar()">
-            Registrar
-          </ion-button>
-  
-          <ion-text class="ion-text-center">
-            <p>Já tem conta? <a (click)="navCtrl.navigateBack('/login')">Login</a></p>
-          </ion-text>
-  
-          <div *ngIf="erroRegistro" class="ion-text-center" style="color:red; margin-top:10px;">
-            {{ erroRegistro }}
-          </div>
-  
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-content>
-  
+<ion-content class="ion-padding">
+  <ion-card>
+    <img *ngIf="perfil.foto" [src]="perfil.foto" />
+    <ion-card-header>
+      <ion-card-title>{{ perfil.nome }}</ion-card-title>
+      <ion-card-subtitle>@{{ perfil.nome_usuario }}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{ perfil.biografia || 'Sem biografia' }}</p>
+      <ion-button (click)="editarBiografia()">Editar Biografia</ion-button>
+      <ion-button (click)="adicionarFoto()">Adicionar Foto</ion-button>
+      <ion-button (click)="removerFoto()">Remover Foto</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list>
+    <ion-item *ngFor="let post of perfil.postagens">
+      <ion-label>
+        <h2>{{ post.nome }}</h2>
+        <p>{{ post.texto }}</p>
+        <small>{{ post.data }}</small>
+      </ion-label>
+      <ion-button color="danger" (click)="removerPostagem(post)">Remover</ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="block" color="primary" (click)="novaPostagem()">Nova Postagem</ion-button>
+</ion-content>

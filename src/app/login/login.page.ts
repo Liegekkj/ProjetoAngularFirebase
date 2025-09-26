@@ -12,24 +12,19 @@ export class LoginPage {
   senha: string = '';
   erroLogin: string = '';
 
-  constructor(private navCtrl: NavController, private alertCtrl: AlertController, private userService: UserService) {}
+  constructor(
+    public navCtrl: NavController,
+    private alertCtrl: AlertController,
+    private userService: UserService
+  ) {}
 
-  login() {
-    const user = this.userService.validarLogin(this.usuario, this.senha);
+  async login() {
+    const user = this.userService.usuarios.find(u => u.usuario === this.usuario && u.senha === this.senha);
     if (user) {
-      this.erroLogin = '';
-      this.navCtrl.navigateRoot('/home');
+      this.userService.usuarioLogado = user;
+      this.navCtrl.navigateForward('/home');
     } else {
-      this.erroLogin = 'Usuário ou senha inválidos!';
+      this.erroLogin = 'Usuário ou senha incorretos!';
     }
-  }
-
-  async esqueciSenha() {
-    const alert = await this.alertCtrl.create({
-      header: 'Esqueci minha senha',
-      message: 'Entre em contato com o suporte.',
-      buttons: ['OK']
-    });
-    await alert.present();
   }
 }

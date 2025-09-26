@@ -6,21 +6,23 @@
 
         <ion-item>
           <ion-label position="floating">Usuário</ion-label>
-          <ion-input [(ngModel)]="usuario"></ion-input>
+          <ion-input [(ngModel)]="usuario" required></ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label position="floating">Senha</ion-label>
-          <ion-input type="password" [(ngModel)]="senha"></ion-input>
+          <ion-input type="password" [(ngModel)]="senha" required></ion-input>
         </ion-item>
 
         <ion-button expand="block" color="primary" (click)="login()">Entrar</ion-button>
 
+        <ion-text *ngIf="erroLogin" color="danger" class="ion-text-center">
+          {{ erroLogin }}
+        </ion-text>
+
         <ion-text class="ion-text-center">
           <p>Não tem conta? <a (click)="navCtrl.navigateForward('/register')">Registrar</a></p>
         </ion-text>
-
-        <div *ngIf="erroLogin" style="color:red; text-align:center;">{{ erroLogin }}</div>
       </ion-col>
     </ion-row>
   </ion-grid>

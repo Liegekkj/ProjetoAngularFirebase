@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController } from '@ionic/angular';
-import { UserService } from '../services/user.service';
+import { UserService, Usuario } from '../services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -8,14 +8,18 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage {
-  nome = '';
-  usuario = '';
-  email = '';
-  senha = '';
-  confirmarSenha = '';
-  erroRegistro = '';
+  nome: string = '';
+  usuario: string = '';
+  email: string = '';
+  senha: string = '';
+  confirmarSenha: string = '';
+  erroRegistro: string = '';
 
-  constructor(private navCtrl: NavController, private alertCtrl: AlertController, private userService: UserService) {}
+  constructor(
+    public navCtrl: NavController,
+    private alertCtrl: AlertController,
+    private userService: UserService
+  ) {}
 
   async registrar() {
     if (!this.nome || !this.usuario || !this.email || !this.senha || !this.confirmarSenha) {
@@ -28,7 +32,7 @@ export class RegisterPage {
       return;
     }
 
-    const existente = this.userService.usuarios.find(u => u.usuario === this.usuario);
+    const existente: Usuario | undefined = this.userService.usuarios.find(u => u.usuario === this.usuario);
     if (existente) {
       this.erroRegistro = 'Usuário já existe!';
       return;
