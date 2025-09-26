@@ -1,21 +1,42 @@
-<ion-content [fullscreen]="true">
-  <ion-row class="ion-justify-content-center margin-top">
-    <ion-col size="4" class="bg-image"></ion-col>
-    <ion-col size="4">
-      <ion-card>
+<ion-content class="ion-padding" fullscreen>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center ion-align-items-center" style="height: 100%;">
+      <ion-col size="12" size-md="6" size-lg="4">
+        <h1 class="ion-text-center">Registrar</h1>
+
         <ion-item>
-          <ion-input label="E-mail" [(ngModel)]="this.user.email"></ion-input>
+          <ion-label position="floating">Nome</ion-label>
+          <ion-input [(ngModel)]="nome"></ion-input>
         </ion-item>
+
         <ion-item>
-          <ion-input label="Senha" [(ngModel)]="this.user.password"></ion-input>
+          <ion-label position="floating">Usuário</ion-label>
+          <ion-input [(ngModel)]="usuario"></ion-input>
         </ion-item>
+
         <ion-item>
-          <ion-input label="Confirmar Senha" [(ngModel)]="this.user.confirm_password"></ion-input>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input type="email" [(ngModel)]="email"></ion-input>
         </ion-item>
+
         <ion-item>
-          <ion-button color="secondary" slot="end" (click)="registrar()">Registrar-se</ion-button>
+          <ion-label position="floating">Senha</ion-label>
+          <ion-input type="password" [(ngModel)]="senha"></ion-input>
         </ion-item>
-      </ion-card>
-    </ion-col>
-  </ion-row>
+
+        <ion-item>
+          <ion-label position="floating">Confirmar Senha</ion-label>
+          <ion-input type="password" [(ngModel)]="confirmarSenha"></ion-input>
+        </ion-item>
+
+        <ion-button expand="block" color="primary" (click)="registrar()">Registrar</ion-button>
+
+        <ion-text class="ion-text-center">
+          <p>Já tem conta? <a (click)="navCtrl.navigateBack('/login')">Login</a></p>
+        </ion-text>
+
+        <div *ngIf="erroRegistro" style="color:red; text-align:center;">{{ erroRegistro }}</div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

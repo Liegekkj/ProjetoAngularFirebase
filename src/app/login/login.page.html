@@ -1,18 +1,27 @@
-<ion-content [fullscreen]="true">
-  <ion-row class="ion-justify-content-center margin-top">
-    <ion-col size="4" class="bg-image"></ion-col>
-    <ion-col size="4">
-      <ion-card>
+<ion-content class="ion-padding" fullscreen>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center ion-align-items-center" style="height: 100%;">
+      <ion-col size="12" size-md="6" size-lg="4">
+        <h1 class="ion-text-center">Login</h1>
+
         <ion-item>
-          <ion-input label="E-mail" [(ngModel)]="this.user.email"></ion-input>
+          <ion-label position="floating">Usuário</ion-label>
+          <ion-input [(ngModel)]="usuario"></ion-input>
         </ion-item>
+
         <ion-item>
-          <ion-input label="Senha" [(ngModel)]="this.user.password"></ion-input>
+          <ion-label position="floating">Senha</ion-label>
+          <ion-input type="password" [(ngModel)]="senha"></ion-input>
         </ion-item>
-        <ion-item>
-          <ion-button color="secondary" slot="end" (click)="acessar()">Acessar</ion-button>
-        </ion-item>
-      </ion-card>
-    </ion-col>
-  </ion-row>
+
+        <ion-button expand="block" color="primary" (click)="login()">Entrar</ion-button>
+
+        <ion-text class="ion-text-center">
+          <p>Não tem conta? <a (click)="navCtrl.navigateForward('/register')">Registrar</a></p>
+        </ion-text>
+
+        <div *ngIf="erroLogin" style="color:red; text-align:center;">{{ erroLogin }}</div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

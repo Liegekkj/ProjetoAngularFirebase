@@ -1,56 +1,49 @@
 import { Component } from '@angular/core';
-import { AuthenticateService } from '../services/auth.service';
-import { CrudService } from '../services/crud.service';
-import { Storage, getDownloadURL, ref, uploadBytesResumable } from '@angular/fire/storage';
-import { MessageService } from '../services/message.service';
-import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  templateUrl: './home.page.html',
+  styleUrls: ['./home.page.scss'],
 })
 export class HomePage {
+  perfil: any;
 
-  perfil: any = {
-    foto: null,
-    nome: null,
-    profissao: null,
-    nome_usuario: null,
-    idioma: null,
-    localidade: null,
-    data_inicio: null,
-    biografia: null,
-    estatisticas: {
-      curtidas: 0,
-      seguindo: 0,
-      amigos: 0
-    },
-    postagens: [
-      {
-        foto: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqyZDSyazgi2SYkrOX_KXLu9_zEn6eyNTWyw&s',
-        nome: 'Carlos Antônio',
-        nome_usuario: '@carlosantonio',
-        texto: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus placeat unde a quod exercitationem saepe obcaecati ullam corrupti quos! Excepturi est nemo mollitia similique maiores voluptatibus tempore provident corporis quia?',
-        data: '12/03/2025 14:00'
-      },
-      {
-        foto: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqyZDSyazgi2SYkrOX_KXLu9_zEn6eyNTWyw&s',
-        nome: 'Carlos Antônio',
-        nome_usuario: '@carlosantonio',
-        texto: 'Outro exemplo de Postagem!!!',
-        data: '12/03/2025 14:10'
-      },
-      {
-        foto: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqyZDSyazgi2SYkrOX_KXLu9_zEn6eyNTWyw&s',
-        nome: 'Carlos Antônio',
-        nome_usuario: '@carlosantonio',
-        texto: 'Hello World!',
-        data: '12/03/2025 14:30'
-      },
-    ]
+  constructor(private userService: UserService) {
+    const user = this.userService.usuarioLogado;
+    this.perfil = {
+      foto: null,
+      nome: user?.nome,
+      nome_usuario: user?.usuario,
+      profissao: 'Programador',
+      idioma: 'Português',
+      localidade: 'Tatuí / SP',
+      data_inicio: 'Janeiro de 2020',
+      biografia: '',
+      estatisticas: { curtidas: 0, seguindo: 0, amigos: 0 },
+      postagens: []
+    };
   }
 
-  constructor( ){ }
-
+  adicionarFoto() { this.perfil.foto = 'https://picsum.photos/200'; }
+  removerFoto() { this.perfil.foto = null; }
+  editarBiografia() {
+    const novaBio = prompt('Digite sua biografia:', this.perfil.biografia);
+    if (novaBio !== null) this.perfil.biografia = novaBio;
+  }
+  novaPostagem() {
+    const texto = prompt('Digite o texto da postagem:');
+    if (texto) {
+      this.perfil.postagens.unshift({
+        foto: null,
+        nome: this.perfil.nome,
+        nome_usuario: this.perfil.nome_usuario,
+        texto: texto,
+        data: new Date().toLocaleString()
+      });
+    }
+  }
+  removerPostagem(postagem: any) {
+    this.perfil.postagens = this.perfil.postagens.filter((p: any) => p !== postagem);
+  }
 }
